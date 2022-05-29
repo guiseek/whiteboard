@@ -11,10 +11,10 @@ const io = new Socket(server, config)
 io.on('connection', (socket) => {
   console.log('a user connected')
 
-  socket.on('drawing', (data) => {
+  socket.on('message', (data) => {
     console.log(data)
 
-    socket.broadcast.emit('drawing', data)
+    socket.broadcast.emit('message', data)
   })
 
   socket.on('offer', (data) => {

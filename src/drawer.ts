@@ -1,3 +1,4 @@
+import { Channel } from './adapters/channel'
 import { log } from './utils/log'
 import { throttle } from './utils/throttle'
 
@@ -13,11 +14,11 @@ export class Drawer {
   private context: CanvasRenderingContext2D
 
   constructor(
-    private channel: RTCDataChannel,
+    private channel: ChannelHandler<ChannelData>,
     private canvas: HTMLCanvasElement,
     colors: HTMLElement[]
   ) {
-    log('channel open', channel.label)
+    log('channel open', Channel.id)
 
     this.context = canvas.getContext('2d')!
 
@@ -43,9 +44,9 @@ export class Drawer {
       false
     )
 
-    this.channel.onmessage = ({ data }) => {
-      this.onDrawingEvent(JSON.parse(data))
-    }
+    this.channel.on((data) => {
+      this.onDrawingEvent(data)
+    })
   }
 
   onColorUpdate = (target: HTMLElement) => {
@@ -161,14 +162,12 @@ export class Drawer {
 
     const w = this.canvas.width
     const h = this.canvas.height
-    this.channel.send(
-      JSON.stringify({
-        x0: x0 / w,
-        y0: y0 / h,
-        x1: x1 / w,
-        y1: y1 / h,
-        color: color,
-      })
-    )
+    this.channel.send({
+      x0: x0 / w,
+      y0: y0 / h,
+      x1: x1 / w,
+      y1: y1 / h,
+      color: color,
+    })
   }
 }

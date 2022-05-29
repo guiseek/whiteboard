@@ -6,6 +6,7 @@ import { Drawer } from './drawer'
 
 import './style.scss'
 import { log } from './utils/log'
+import { Channel } from './adapters/channel'
 
 /**
  * UI
@@ -76,7 +77,13 @@ const channel = peer.createDataChannel('channel')
 channel.onmessage = ({ data }) => log('message', data)
 
 channel.onopen = () => {
-  new Drawer(channel, canvas, palette)
+  // Socket
+  // const handler = Channel.createInstance<ChannelData>(socket)
+
+  // DataChannel
+  const handler = Channel.createInstance<ChannelData>(channel)
+
+  new Drawer(handler, canvas, palette)
   output.textContent = 'Connected!'
 }
 
@@ -85,7 +92,13 @@ peer.ondatachannel = ({ channel }: RTCDataChannelEvent) => {
   peerChannel.onmessage = ({ data }) => log('message', data)
 
   peerChannel.onopen = () => {
-    new Drawer(channel, canvas, palette)
+    // Socket
+    // const handler = Channel.createInstance<ChannelData>(socket)
+
+    // DataChannel
+    const handler = Channel.createInstance<ChannelData>(channel)
+
+    new Drawer(handler, canvas, palette)
     output.textContent = 'Connected!'
   }
 
