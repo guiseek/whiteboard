@@ -1,12 +1,12 @@
 import { io } from 'socket.io-client'
 
+import { Channel } from './adapters/channel'
 import { Signaling } from './signaling'
 import { query } from './utils/query'
+import { log } from './utils/log'
 import { Drawer } from './drawer'
 
 import './style.scss'
-import { log } from './utils/log'
-import { Channel } from './adapters/channel'
 
 /**
  * UI
