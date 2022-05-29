@@ -1,5 +1,4 @@
 import { throttle } from './utils/throttle'
-import { Socket } from 'socket.io-client'
 
 export class Drawer {
   current = {
@@ -13,10 +12,12 @@ export class Drawer {
   private context: CanvasRenderingContext2D
 
   constructor(
-    private socket: Socket,
+    private channel: RTCDataChannel,
     private canvas: HTMLCanvasElement,
     colors: HTMLElement[]
   ) {
+    console.log('channel open!', channel)
+
     this.context = canvas.getContext('2d')!
 
     colors.forEach((color) => {
@@ -41,11 +42,9 @@ export class Drawer {
       false
     )
 
-    this.socket.on('drawing', (data) => {
-      console.log(data)
-
-      this.onDrawingEvent(data)
-    })
+    this.channel.onmessage = ({ data }) => {
+      this.onDrawingEvent(JSON.parse(data))
+    }
   }
 
   onColorUpdate = (target: HTMLElement) => {
@@ -159,15 +158,17 @@ export class Drawer {
     if (!emit) {
       return
     }
+
     const w = this.canvas.width
     const h = this.canvas.height
-
-    this.socket.emit('drawing', {
-      x0: x0 / w,
-      y0: y0 / h,
-      x1: x1 / w,
-      y1: y1 / h,
-      color: color,
-    })
+    this.channel.send(
+      JSON.stringify({
+        x0: x0 / w,
+        y0: y0 / h,
+        x1: x1 / w,
+        y1: y1 / h,
+        color: color,
+      })
+    )
   }
 }

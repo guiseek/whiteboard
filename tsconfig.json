@@ -5,6 +5,7 @@
     "module": "ESNext",
     "lib": ["ESNext", "DOM"],
     "moduleResolution": "Node",
+    "baseUrl": ".",
     "strict": true,
     "sourceMap": true,
     "resolveJsonModule": true,
@@ -14,7 +15,18 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@apps/*": [
+        "./apps/*"
+      ],
+      "@libs/*": [
+        "./libs/*"
+      ],
+      "@libs/ui-utils": [
+        "./libs/ui-utils/src/public-api.ts"
+      ],
+    }
   },
-  "include": ["src"]
+  "include": ["src", "apps", "libs"],
 }

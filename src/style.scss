@@ -41,3 +41,9 @@ html, body {
 .color.green { background-color: green; }
 .color.blue { background-color: blue; }
 .color.yellow { background-color: yellow; }
+
+output.state {
+  position: fixed;
+  right: 0;
+  top: 0;
+}

@@ -1,31 +1,43 @@
-import express from 'express';
-import { Server } from 'http';
-import socket from 'socket.io';
+import { Server as Socket } from 'socket.io'
+import { Server as Http } from 'http'
+import express from 'express'
 
-const app = express();
-const server = new Server(app)
-const io = new socket.Server(server, {
-  cors: {
-    origin: '*'
-  }
-})
+const app = express()
+const server = new Http(app)
+
+const config = { cors: { origin: '*' } }
+const io = new Socket(server, config)
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
-  
+  console.log('a user connected')
+
   socket.on('drawing', (data) => {
-    console.log(data);
-    
+    console.log(data)
+
     socket.broadcast.emit('drawing', data)
   })
-  
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
+
+  socket.on('offer', (data) => {
+    console.log(data)
+
+    socket.broadcast.emit('offer', data)
+  })
+
+  socket.on('answer', (data) => {
+    console.log(data)
+
+    socket.broadcast.emit('answer', data)
+  })
+
   socket.on('chat message', (msg) => {
-    io.emit('chat message', msg);
-  });
+    io.emit('chat message', msg)
+  })
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected')
+  })
 })
 
-const port = process.env.PORT ?? 3000;
-server.listen(port, () => console.log(`Listening on port ${port}`));
+const port = process.env.PORT ?? 3000
+
+server.listen(port, () => console.log(`Listening on port ${port}`))
