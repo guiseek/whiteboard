@@ -4,16 +4,7 @@ export class Signaling<T extends Record<any, any> = any> {
   id = ''
 
   constructor(private socket: Socket) {
-    this.socket.on('connect', () => {
-      console.log('connected', socket.id)
-      this.id = socket.id
-    })
-    this.socket.on('disconnect', () => {
-      console.log('disconnected')
-    })
-    this.socket.on('error', (error: Error) => {
-      console.log('error', error)
-    })
+    this.socket.on('connect', () => (this.id = socket.id))
   }
 
   on<K extends keyof T>(event: string, callback: (data: T[K]) => void) {

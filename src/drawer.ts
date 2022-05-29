@@ -1,3 +1,4 @@
+import { log } from './utils/log'
 import { throttle } from './utils/throttle'
 
 export class Drawer {
@@ -16,7 +17,7 @@ export class Drawer {
     private canvas: HTMLCanvasElement,
     colors: HTMLElement[]
   ) {
-    console.log('channel open!', channel)
+    log('channel open', channel.label)
 
     this.context = canvas.getContext('2d')!
 
@@ -29,7 +30,7 @@ export class Drawer {
     canvas.addEventListener('mouseout', (e) => this.onMouseUp(e), false)
     canvas.addEventListener(
       'mousemove',
-      throttle(this.onMouseMove.bind(this), 10),
+      throttle(this.onMouseMove.bind(this), 5),
       false
     )
 
@@ -38,7 +39,7 @@ export class Drawer {
     canvas.addEventListener('touchcancel', (e) => this.onMouseUp(e), false)
     canvas.addEventListener(
       'touchmove',
-      throttle(this.onMouseMove.bind(this), 10),
+      throttle(this.onMouseMove.bind(this), 5),
       false
     )
 
