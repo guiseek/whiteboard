@@ -73,24 +73,24 @@ export class Drawer {
       return
     }
     this.drawing = false
-    const params = {
-      x1: 0,
-      y1: 0,
-    }
+
+    let clientX = 0,
+      clientY = 0
+
     if (e instanceof TouchEvent) {
-      params.x1 = e.touches[0].clientX
-      params.y1 = e.touches[0].clientY
+      clientX = e.touches[0].clientX
+      clientY = e.touches[0].clientY
     }
     if (e instanceof MouseEvent) {
-      params.x1 = e.clientX
-      params.y1 = e.clientY
+      clientX = e.clientX
+      clientY = e.clientY
     }
 
     this.drawLine(
       this.current.x,
       this.current.y,
-      params.x1,
-      params.y1,
+      clientX,
+      clientY,
       this.current.color,
       true
     )
@@ -101,14 +101,13 @@ export class Drawer {
       return
     }
 
-    let clientX = 0
-    let clientY = 0
+    let clientX = 0,
+      clientY = 0
 
     if (e instanceof TouchEvent) {
       clientX = e.touches[0].clientX
       clientY = e.touches[0].clientY
     }
-
     if (e instanceof MouseEvent) {
       clientX = e.clientX
       clientY = e.clientY
@@ -127,8 +126,8 @@ export class Drawer {
   }
 
   onDrawingEvent(data: any) {
-    var w = this.canvas.width
-    var h = this.canvas.height
+    const w = this.canvas.width
+    const h = this.canvas.height
     console.log(data)
 
     this.drawLine(
