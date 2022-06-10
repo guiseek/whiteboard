@@ -2,7 +2,8 @@
 
 interface SignalingMessage {
   id: string
-  payload: RTCSessionDescription
+  // payload: RTCSessionDescription
+  payload: string
 }
 
 interface SignalingMap {

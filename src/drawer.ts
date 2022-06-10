@@ -1,6 +1,6 @@
 import { Channel } from './adapters/channel'
-import { log } from './utils/log'
 import { throttle } from './utils/throttle'
+import { log } from './utils/log'
 
 export class Drawer {
   current = {
@@ -22,6 +22,7 @@ export class Drawer {
 
     this.context = canvas.getContext('2d')!
 
+    console.log(colors)
     colors.forEach((color) => {
       color.addEventListener('click', () => this.onColorUpdate(color), false)
     })

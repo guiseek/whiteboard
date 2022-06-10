@@ -6,7 +6,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -36,14 +37,39 @@ html, body {
   width: 48px;
 }
 
-.color.black { background-color: black; }
-.color.red { background-color: red; }
-.color.green { background-color: green; }
-.color.blue { background-color: blue; }
-.color.yellow { background-color: yellow; }
+.color.black {
+  background-color: black;
+}
+.color.red {
+  background-color: red;
+}
+.color.green {
+  background-color: green;
+}
+.color.blue {
+  background-color: blue;
+}
+.color.yellow {
+  background-color: yellow;
+}
 
 output.state {
   position: fixed;
   right: 0;
   top: 0;
+}
+
+section.card {
+  display: flex;
+  flex-direction: column;
+
+  .card__cover {
+    height: 150px;
+    width: 100%;
+  }
+
+  .card__content {
+    /* Take available height */
+    flex: 1;
+  }
 }
