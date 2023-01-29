@@ -8,7 +8,8 @@ export function connectionFactory(
   signaling: Signaling,
   canvas: HTMLCanvasElement,
   palette: HTMLDivElement[],
-  output: HTMLOutputElement
+  output: HTMLOutputElement,
+  stroke: HTMLInputElement
 ) {
   /**
    * WebRTC Negotiation
@@ -37,7 +38,7 @@ export function connectionFactory(
     // const handler = Channel.createInstance<ChannelData>(socket) // Socket
     const handler = Channel.createInstance<ChannelData>(channel) // DataChannel
 
-    new Drawer(handler, canvas, palette)
+    new Drawer(handler, canvas, palette, stroke)
     output.textContent = 'Connected!'
   }
 
@@ -48,7 +49,7 @@ export function connectionFactory(
       // const handler = Channel.createInstance<ChannelData>(socket) // Socket
       const handler = Channel.createInstance<ChannelData>(channel) // DataChannel
 
-      new Drawer(handler, canvas, palette)
+      new Drawer(handler, canvas, palette, stroke)
       output.textContent = 'Connected!'
     }
 

@@ -16,7 +16,8 @@ export class Drawer {
   constructor(
     private channel: ChannelHandler<ChannelData>,
     private canvas: HTMLCanvasElement,
-    colors: HTMLElement[]
+    colors: HTMLElement[],
+    private input: HTMLInputElement
   ) {
     log('channel open', Channel.id)
 
@@ -153,7 +154,7 @@ export class Drawer {
     this.context.moveTo(x0, y0)
     this.context.lineTo(x1, y1)
     this.context.strokeStyle = color
-    this.context.lineWidth = 2
+    this.context.lineWidth = this.input.valueAsNumber
     this.context.stroke()
     this.context.closePath()
 

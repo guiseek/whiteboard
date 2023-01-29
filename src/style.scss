@@ -53,6 +53,14 @@ body {
   background-color: yellow;
 }
 
+.stroke {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  right: 20px;
+  top: 20px;
+}
+
 output.state {
   position: fixed;
   right: 0;
